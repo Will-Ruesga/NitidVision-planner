@@ -1,0 +1,20 @@
+# Virtual environments
+.venv*/
+
+# Python
+__pycache__/
+*.py[cod]
+dist/
+
+# Tests
+tests/
+test/
+test_*.py
+*_test.py
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Claude
+.claude/
+CLAUDE.md

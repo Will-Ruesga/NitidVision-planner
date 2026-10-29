@@ -1,0 +1,19 @@
+[project]
+name = "NitidVision-planner"
+version = "0.1.0"
+description = "Nitid Vision's planning board: a Time Board, a Project Board and a timeline."
+requires-python = ">=3.12"
+dependencies = [
+    "flask>=3.0,<4.0",
+]
+
+[project.scripts]
+planner = "nitid_planner:main"
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+# The code lives in nitid_planner/, not the nitidvision_planner/ flit would derive from the name.
+[tool.flit.module]
+name = "nitid_planner"

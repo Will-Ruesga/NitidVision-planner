@@ -1,0 +1,114 @@
+[
+  {
+    "id": "7420855f6d354719846f3a2a7d34893e",
+    "title": "Dataset processing pipeline",
+    "description": "",
+    "stage": "idees",
+    "project": "tecnologia",
+    "members": [],
+    "start_date": "2026-10-29",
+    "due_date": "2026-11-06",
+    "done": false
+  },
+  {
+    "id": "9d823b639419442fa5196aef07736c9a",
+    "title": "Construir SL amb una gestoria",
+    "description": "",
+    "stage": "per-fer",
+    "project": "legal",
+    "members": [],
+    "start_date": null,
+    "due_date": null,
+    "done": false
+  },
+  {
+    "id": "82a274cccb364eb4b54318def216dc6b",
+    "title": "Registrar el domini i configurar el correu",
+    "description": "",
+    "stage": "per-fer",
+    "project": "web",
+    "members": [],
+    "start_date": "2026-10-21",
+    "due_date": "2026-10-28",
+    "done": false
+  },
+  {
+    "id": "672c4a50e18d419087d982d27b0af89f",
+    "title": "Crear lead magnets",
+    "description": "",
+    "stage": "per-fer",
+    "project": "marqueting",
+    "members": [],
+    "start_date": null,
+    "due_date": null,
+    "done": false
+  },
+  {
+    "id": "d04ca98aeddb4ade9a6df2eba7ba196c",
+    "title": "Començar a treballar xarxes socials (LinkedIn)",
+    "description": "",
+    "stage": "per-fer",
+    "project": "marqueting",
+    "members": [],
+    "start_date": null,
+    "due_date": null,
+    "done": false
+  },
+  {
+    "id": "72dbf78e43b1424db1d9f472035d219e",
+    "title": "Crear el blog",
+    "description": "",
+    "stage": "per-fer",
+    "project": "marqueting",
+    "members": [],
+    "start_date": null,
+    "due_date": null,
+    "done": false
+  },
+  {
+    "id": "6889acce522947d39dd63a995acc93c2",
+    "title": "Revisar \"Acord de Minims\"",
+    "description": "",
+    "stage": "aquesta-setmana",
+    "project": "legal",
+    "members": [],
+    "start_date": "2026-10-30",
+    "due_date": "2026-10-30",
+    "done": false
+  },
+  {
+    "id": "cd55a88a92b649ea9aef4af2ea142b8e",
+    "title": "Ampliar la web i publicar-la",
+    "description": "",
+    "stage": "aquesta-setmana",
+    "project": "web",
+    "members": [],
+    "start_date": null,
+    "due_date": null,
+    "done": false
+  },
+  {
+    "id": "1fd0d304b497474e8707a29eeeccee14",
+    "title": "Implementar Task Board interna",
+    "description": "",
+    "stage": "en-curs",
+    "project": "tecnologia",
+    "members": [
+      "g"
+    ],
+    "start_date": null,
+    "due_date": null,
+    "done": false
+  },
+  {
+    "id": "543ea0c180e14c4695bcd7d77d9c6025",
+    "title": "Preparar plantilles de documents",
+    "description": "",
+    "stage": "en-revisio",
+    "project": "legal",
+    "members": [],
+    "start_date": null,
+    "due_date": null,
+    "done": false
+  }
+]

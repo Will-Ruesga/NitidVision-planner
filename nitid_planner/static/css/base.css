@@ -1,0 +1,248 @@
+/*
+ * Tokens + body defaults.
+ * Neutrals, type and motion follow the Nitid Vision site: "alloy" greys, blue
+ * action, near-square corners, Archivo + Martian Mono, quick ease-out hovers
+ * and a springy pop for things that appear. Theme-scoped tokens live under
+ * [data-theme="light"] (also the default) and [data-theme="dark"]; brand
+ * colours (Little Planet) and structural tokens are theme-independent.
+ *
+ * Stages, projects and avatars pick a colour by palette key via
+ * [data-color="<key>"]; the keys are COLORS in nitid_planner/board.py.
+ * Never hardcode hexes outside this file.
+ */
+
+:root {
+  /* Archivo is one variable font: Expanded = wdth 125, Condensed = wdth 75 */
+  --font-sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  /* Mono is for machine-like text: small caps labels, dates, day numbers */
+  --font-mono: "Martian Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  /* Radius: near-square, like the site */
+  --radius-1: 2px;
+  --radius-2: 4px;
+
+  /* Controls */
+  --control-sm: 28px;
+  --control-md: 36px;
+
+  /* Blocks are separated by cuts that show the canvas, not by hairlines */
+  --cut: 4px;
+
+  /* Motion: hovers settle fast; things that appear pop with a slight overshoot */
+  --motion-fast: 120ms;
+  --motion-pop: 280ms;
+  --ease-pop: cubic-bezier(0.2, 0.9, 0.3, 1.25);
+
+  /* Little Planet brand colours */
+  --lp-forest: #053b2d;
+  --lp-maroon: #780001;
+  --lp-navy: #02304a;
+  --lp-steel: #659bbd;
+  --lp-cream: #fcf1d5;
+  --lp-red: #c21320;
+
+  /* Translucent near-black tag, as the site's labels over camera images */
+  --tag: #0f1216e6;
+  --on-tag: #ffffff;
+}
+
+/* Dialog scrim. Set on ::backdrop itself: older browsers don't inherit custom properties into it. */
+::backdrop {
+  --scrim: #0a0c0fa6;
+}
+
+/* ---------- Light theme (default) ---------- */
+
+:root,
+[data-theme="light"] {
+  --canvas: #dfe2e6;
+  --surface: #ffffff;
+  --surface-muted: #eff1f4;
+  --raised: var(--surface);
+  --line: #bec3c8;
+  --ink: #1c2024;
+  --ink-muted: #5a6066;
+
+  --action: #215ee5;
+  --action-hover: #2058d4;
+  --on-action: #ffffff;
+  --action-soft: #e0ebff;
+  --action-text: #194ab6;
+  --danger: #bc100c;
+  --danger-soft: #ffe3df;
+  --today: var(--lp-red);
+
+  /* RGB channel bar from the Nitid logo */
+  --channel-r: #dd2119;
+  --channel-g: #008f5c;
+  --channel-b: #215ee5;
+
+  /* Tasks: a light tint of their column colour, this share over this base */
+  --tint: 14%;
+  --tint-base: var(--surface);
+
+  /* Ticked task */
+  --done: #007752;
+  --on-done: #ffffff;
+
+  --shadow-panel: 0 1px 2px #0f121614;
+  --shadow-float: 0 2px 6px #0f12161a, 0 12px 28px -6px #0f121633;
+  --focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #215ee5;
+  color-scheme: light;
+}
+
+/* ---------- Dark theme ---------- */
+
+[data-theme="dark"] {
+  --canvas: #0f1216;
+  --surface: #1c2024;
+  --surface-muted: #2c3136;
+  --raised: var(--surface-muted);
+  --line: #41474d;
+  --ink: #eff1f4;
+  --ink-muted: #9a9fa5;
+
+  --action: #538bfd;
+  --action-hover: #a1c1ff;
+  --on-action: #0f1216;
+  --action-soft: #0b1d46;
+  --action-text: #a1c1ff;
+  --danger: #f64b3c;
+  --danger-soft: #3f0b07;
+  --today: #f64b3c;
+
+  --channel-r: #f64b3c;
+  --channel-g: #00bb82;
+  --channel-b: #538bfd;
+
+  /* Little Planet colours are dark, so the dark surface needs a bigger share to show them */
+  --tint: 24%;
+  --tint-base: var(--surface);
+
+  --done: #00bb82;
+  --on-done: #0f1216;
+
+  --shadow-panel: 0 1px 2px #00000066;
+  --shadow-float: 0 2px 6px #00000080, 0 12px 28px -6px #000000b3;
+  --focus-ring: 0 0 0 2px #0f1216, 0 0 0 4px #538bfd;
+  color-scheme: dark;
+}
+
+/* ---------- Palette keys (background + the ink that reads on it, all >= 4.5:1) ---------- */
+
+[data-color="cream"]  { --c-bg: var(--lp-cream);  --c-ink: var(--lp-navy); }
+[data-color="maroon"] { --c-bg: var(--lp-maroon); --c-ink: var(--lp-cream); }
+[data-color="forest"] { --c-bg: var(--lp-forest); --c-ink: var(--lp-cream); }
+[data-color="navy"]   { --c-bg: var(--lp-navy);   --c-ink: var(--lp-steel); }
+[data-color="steel"]  { --c-bg: var(--lp-steel);  --c-ink: var(--lp-navy); }
+[data-color="red"]    { --c-bg: var(--lp-red);    --c-ink: var(--lp-cream); }
+[data-color="amber"]  { --c-bg: #faa617;          --c-ink: #1c2024; }
+[data-color="green"]  { --c-bg: #007752;          --c-ink: #ffffff; }
+[data-color="coral"]  { --c-bg: #f64b3c;          --c-ink: #1c2024; }
+[data-color="blue"]   { --c-bg: #215ee5;          --c-ink: #ffffff; }
+
+/* ---------- Body ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ---------- Type tiers ---------- */
+
+/* Display: brand, editor title, column names */
+.t-display {
+  font-stretch: 125%;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+/* Figures: counts, set condensed */
+.t-figure {
+  font-stretch: 75%;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Small mono caps above fields and filter groups */
+.t-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

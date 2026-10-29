@@ -1,0 +1,20 @@
+[
+  {
+    "id": "g",
+    "name": "Guillem",
+    "initials": "G",
+    "color": "navy"
+  },
+  {
+    "id": "vc",
+    "name": "Vicent",
+    "initials": "VC",
+    "color": "red"
+  },
+  {
+    "id": "p",
+    "name": "Pablo",
+    "initials": "P",
+    "color": "forest"
+  }
+]

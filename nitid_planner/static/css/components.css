@@ -1,0 +1,521 @@
+/*
+ * Shared components, used across the views. Page CSS must not re-style any of these.
+ * Add a new component to style.md first, then implement here.
+ */
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-md);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: var(--surface-muted);
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) ease-out,
+    color var(--motion-fast) ease-out,
+    transform var(--motion-fast) ease-out;
+}
+
+.btn:hover {
+  background: color-mix(in srgb, var(--ink) 8%, var(--surface-muted));
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--action);
+  color: var(--on-action);
+}
+
+.btn--primary:hover {
+  background: var(--action-hover);
+}
+
+/* Takes the colour of its context (e.g. the column ink) */
+.btn--ghost {
+  background: transparent;
+  color: inherit;
+}
+
+.btn--ghost:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.btn--danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.btn--danger:hover {
+  background: color-mix(in srgb, var(--danger) 18%, var(--danger-soft));
+}
+
+.btn--sm {
+  min-height: var(--control-sm);
+  padding: 0 var(--space-3);
+  font-size: 13px;
+}
+
+.btn--icon {
+  width: var(--control-md);
+  padding: 0;
+  font-size: 18px;
+}
+
+/* ---------- Form controls: wells in the canvas colour, an action edge on focus ---------- */
+
+.input {
+  width: 100%;
+  min-height: var(--control-md);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-1);
+  background: var(--canvas);
+  color: var(--ink);
+  transition: border-color var(--motion-fast) ease-out, box-shadow var(--motion-fast) ease-out;
+}
+
+.input:hover {
+  border-color: var(--line);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--action);
+  box-shadow: 0 0 0 1px var(--action);
+}
+
+.input::placeholder {
+  color: var(--ink-muted);
+}
+
+textarea.input {
+  resize: vertical;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+/* ---------- Label (on tasks: project or stage): a small caps tag in its palette colour ---------- */
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--radius-1);
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- Avatar ---------- */
+
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-size: 11px;
+  font-stretch: 75%;
+  font-weight: 700;
+}
+
+.avatars {
+  display: inline-flex;
+}
+
+.avatars .avatar + .avatar {
+  margin-left: -4px;
+  box-shadow: 0 0 0 2px var(--raised);
+}
+
+/* ---------- Chip: small button led by a swatch or avatar; a toggle when it has aria-pressed ---------- */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--control-sm);
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: var(--surface-muted);
+  color: var(--ink);
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) ease-out,
+    color var(--motion-fast) ease-out,
+    box-shadow var(--motion-fast) ease-out;
+}
+
+.chip:has(.avatar) {
+  padding-left: 2px;
+}
+
+.chip:hover {
+  background: color-mix(in srgb, var(--ink) 8%, var(--surface-muted));
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--action-soft);
+  color: var(--action-text);
+  box-shadow: inset 0 0 0 1.5px var(--action);
+}
+
+/* "+" at the end of a chip row: quiet until hovered */
+.chip--add {
+  justify-content: center;
+  min-width: var(--control-sm);
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 16px;
+}
+
+.chip--add:hover {
+  color: var(--ink);
+}
+
+/* The neutral ring keeps light (cream) and dark (navy) swatches visible in both themes */
+.chip__swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 1px;
+  background: var(--c-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+.chip .avatar {
+  width: 22px;
+  height: 22px;
+  font-size: 10px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.chip.is-new {
+  animation: pop-in var(--motion-pop) var(--ease-pop);
+}
+
+/* ---------- Swatch: one palette colour as a radio button ---------- */
+
+.swatch {
+  appearance: none;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border-radius: var(--radius-1);
+  background: var(--c-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent);
+  cursor: pointer;
+  transition: transform var(--motion-fast) var(--ease-pop), box-shadow var(--motion-fast) ease-out;
+}
+
+.swatch:hover {
+  transform: scale(1.12);
+}
+
+.swatch:checked {
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink);
+}
+
+.swatch:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+/* 5px gaps keep all ten swatches on one row inside a 288px column tile */
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 2px;
+}
+
+/* ---------- Creator: name + swatches form for a new project ---------- */
+
+.creator {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  /* Scrolled into view with the padding of the tile around it */
+  scroll-margin: var(--space-2);
+}
+
+.creator .input {
+  flex: 1 1 160px;
+  min-width: 0;
+}
+
+.creator__actions {
+  display: flex;
+  gap: var(--space-1);
+}
+
+/* ---------- Composer: new task typed in place, raised like a task ---------- */
+
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.composer .input {
+  background: var(--raised);
+  box-shadow: var(--shadow-panel);
+}
+
+.composer__actions {
+  display: flex;
+  gap: var(--space-1);
+}
+
+/* ---------- Task ---------- */
+
+.task {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-1);
+  background: var(--raised);
+  color: var(--ink);
+  box-shadow: var(--shadow-panel);
+  cursor: pointer;
+  transition: box-shadow var(--motion-fast) ease-out, transform var(--motion-fast) ease-out;
+}
+
+.task:hover {
+  box-shadow: var(--shadow-float);
+  transform: translateY(-1px);
+}
+
+.task:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.task.is-new {
+  animation: pop-in var(--motion-pop) var(--ease-pop);
+}
+
+/* Tick and tag share the first row, the tick on the left */
+.task__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.task__tick {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 1.5px solid var(--ink-muted);
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--on-done);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) ease-out,
+    border-color var(--motion-fast) ease-out,
+    transform var(--motion-fast) var(--ease-pop);
+}
+
+.task__tick:hover {
+  border-color: var(--done);
+  transform: scale(1.1);
+}
+
+.task__tick[aria-pressed="true"] {
+  border-color: var(--done);
+  background: var(--done);
+}
+
+.task__tick[aria-pressed="true"]::after {
+  content: "✓";
+}
+
+.task__title {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.task.is-done .task__title {
+  color: var(--ink-muted);
+  text-decoration: line-through;
+}
+
+.task__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 24px;
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+
+.task__meta:empty {
+  display: none;
+}
+
+.task__dates {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.task__dates[data-overdue="true"] {
+  color: var(--danger);
+}
+
+.task__meta .avatars {
+  margin-left: auto;
+}
+
+/* ---------- Task editor dialog ---------- */
+
+.editor {
+  width: min(640px, calc(100vw - 2 * var(--space-4)));
+  max-height: calc(100dvh - 2 * var(--space-6));
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-2);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-float);
+}
+
+.editor[open] {
+  animation: pop-in var(--motion-pop) var(--ease-pop);
+}
+
+.editor::backdrop {
+  background: var(--scrim);
+  backdrop-filter: blur(3px);
+}
+
+.editor[open]::backdrop {
+  animation: fade-in 200ms ease-out;
+}
+
+/* Column band: the task's column as a solid colour block */
+.editor__band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
+  background: var(--c-bg);
+  color: var(--c-ink);
+}
+
+.editor__column {
+  font-size: 14px;
+}
+
+.editor__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5) var(--space-5);
+}
+
+.editor__title {
+  width: 100%;
+  padding: var(--space-1) var(--space-2);
+  margin-left: calc(-1 * var(--space-2));
+  border: 1px solid transparent;
+  border-radius: var(--radius-1);
+  background: transparent;
+  font-size: 22px;
+  line-height: 30px;
+  transition: border-color var(--motion-fast) ease-out;
+}
+
+.editor__title:hover {
+  border-color: var(--line);
+}
+
+.editor__title:focus {
+  outline: none;
+  border-color: var(--action);
+  box-shadow: 0 0 0 1px var(--action);
+}
+
+.editor__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.editor__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+@media (max-width: 560px) {
+  .editor__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Channel bar: the R / G / B stripes of the Nitid logo ---------- */
+
+.channelbar {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.channelbar i {
+  width: 14px;
+  height: 3px;
+}
+
+.channelbar i:nth-child(1) {
+  background: var(--channel-r);
+}
+
+.channelbar i:nth-child(2) {
+  background: var(--channel-g);
+}
+
+.channelbar i:nth-child(3) {
+  background: var(--channel-b);
+}

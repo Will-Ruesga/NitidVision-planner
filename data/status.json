@@ -1,0 +1,32 @@
+[
+  {
+    "id": "idees",
+    "name": "Idees",
+    "color": "cream"
+  },
+  {
+    "id": "per-fer",
+    "name": "Per fer",
+    "color": "maroon"
+  },
+  {
+    "id": "aquesta-setmana",
+    "name": "Aquesta setmana",
+    "color": "forest"
+  },
+  {
+    "id": "en-curs",
+    "name": "En curs",
+    "color": "navy"
+  },
+  {
+    "id": "en-revisio",
+    "name": "En revisio",
+    "color": "steel"
+  },
+  {
+    "id": "fet",
+    "name": "Fet",
+    "color": "green"
+  }
+]

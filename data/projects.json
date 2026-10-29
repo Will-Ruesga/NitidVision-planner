@@ -1,0 +1,27 @@
+[
+  {
+    "id": "legal",
+    "name": "Legal",
+    "color": "amber"
+  },
+  {
+    "id": "web",
+    "name": "Web",
+    "color": "green"
+  },
+  {
+    "id": "marqueting",
+    "name": "Màrqueting",
+    "color": "coral"
+  },
+  {
+    "id": "tecnologia",
+    "name": "Tecnologia",
+    "color": "navy"
+  },
+  {
+    "id": "documents",
+    "name": "Documents",
+    "color": "blue"
+  }
+]

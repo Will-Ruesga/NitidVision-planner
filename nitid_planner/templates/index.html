@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nitid Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Martian+Mono:wght@400..600&display=swap" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css') }}" />
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+  </head>
+  <body>
+    <div class="app">
+
+      <header class="topbar">
+        <div class="topbar__cell brand">
+          <span class="channelbar" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="brand__name"><b>Nitid</b> Planner</span>
+        </div>
+        <nav class="topbar__cell tabs" aria-label="Views">
+          <button class="tab" data-view="time">Time Board</button>
+          <button class="tab" data-view="project">Project Board</button>
+          <button class="tab" data-view="timeline">Timeline</button>
+        </nav>
+        <div class="topbar__cell">
+          <button id="themeToggle" class="btn btn--icon" title="Toggle theme" aria-label="Toggle theme">◐</button>
+        </div>
+      </header>
+
+      <div class="filterbar">
+        <input id="search" class="input filterbar__search" type="search" placeholder="Search tasks…" />
+        <div class="filterbar__group">
+          <span id="groupFilterName" class="t-label">Projects</span>
+          <div id="groupFilter" class="chips"></div>
+        </div>
+        <div class="filterbar__group">
+          <span class="t-label">People</span>
+          <div id="memberFilter" class="chips"></div>
+        </div>
+        <button id="clearFilters" class="btn btn--ghost btn--sm" hidden>Clear filters</button>
+      </div>
+
+      <main class="views">
+        <div id="board" class="board" data-view="board"></div>
+        <div class="timeline" data-view="timeline" hidden>
+          <div id="timeline" class="timeline__scroll"></div>
+          <section class="timeline__unscheduled">
+            <h2 class="t-label">Not scheduled</h2>
+            <div id="unscheduled" class="chips"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <dialog id="editor" class="editor" aria-labelledby="edTitle">
+      <div id="edBand" class="editor__band">
+        <span id="edBandName" class="editor__column t-display"></span>
+        <button id="edClose" class="btn btn--ghost btn--icon" aria-label="Close">×</button>
+      </div>
+      <div class="editor__body">
+        <input id="edTitle" class="editor__title t-display" aria-label="Title" />
+        <div class="editor__grid">
+          <label class="field">
+            <span class="t-label">Stage</span>
+            <select id="edStage" class="input"></select>
+          </label>
+          <label class="field">
+            <span class="t-label">Project</span>
+            <select id="edProject" class="input"></select>
+          </label>
+          <label class="field">
+            <span class="t-label">Start</span>
+            <input id="edStart" class="input" type="date" />
+          </label>
+          <label class="field">
+            <span class="t-label">Due</span>
+            <input id="edDue" class="input" type="date" />
+          </label>
+        </div>
+        <div class="field">
+          <span class="t-label">People</span>
+          <div id="edMembers" class="chips"></div>
+        </div>
+        <label class="field">
+          <span class="t-label">Description</span>
+          <textarea id="edDescription" class="input" rows="5" placeholder="Add more detail…"></textarea>
+        </label>
+        <div class="editor__foot">
+          <button id="edDelete" class="btn btn--danger">Delete</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,480 @@
+/*
+ * Planner page layout: top bar, filter bar and the three views
+ * (Time Board, Project Board, Timeline). Layout only: never re-style a shared component.
+ */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cut);
+  height: 100dvh;
+}
+
+/* ---------- Top bar: brand | views | actions, separated by cuts ---------- */
+
+.topbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--cut);
+}
+
+.topbar__cell {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  padding: 0 var(--space-4);
+  background: var(--surface);
+}
+
+/* Channel bar over a wordmark set like the Nitid logo: heavy name, light product */
+.brand {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 var(--space-6) 0 var(--space-5);
+}
+
+.brand__name {
+  font-size: 16px;
+  font-stretch: 125%;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.brand__name b {
+  font-weight: 800;
+}
+
+.tabs {
+  gap: var(--space-1);
+  padding: 0 var(--space-4);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--control-md);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: none;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--motion-fast) ease-out, color var(--motion-fast) ease-out;
+}
+
+.tab:hover {
+  background: var(--surface-muted);
+}
+
+.tab[aria-current="page"] {
+  background: var(--action-soft);
+  color: var(--action-text);
+}
+
+/* ---------- Filter bar ---------- */
+
+.filterbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface);
+}
+
+.filterbar__search {
+  width: 240px;
+}
+
+.filterbar__group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.views {
+  flex: 1;
+  min-height: 0;
+}
+
+.views > * {
+  height: 100%;
+}
+
+/* A view fades in when it is switched to (re-renders don't restart it) */
+.views > :not([hidden]) {
+  animation: fade-in 200ms ease-out;
+}
+
+/* ---------- Boards: full-height colour columns; tasks take a light tint of the column colour ---------- */
+
+.board {
+  display: flex;
+  gap: var(--cut);
+  overflow-x: auto;
+}
+
+.column {
+  --raised: color-mix(in srgb, var(--c-bg) var(--tint), var(--tint-base));
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 288px;
+  background: var(--c-bg);
+  color: var(--c-ink);
+}
+
+.column.is-new {
+  animation: pop-in var(--motion-pop) var(--ease-pop);
+}
+
+.column__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 52px;
+  padding: 0 var(--space-3) 0 var(--space-4);
+}
+
+.column__title {
+  font-size: 15px;
+}
+
+.column__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: var(--radius-1);
+  background: color-mix(in srgb, var(--c-ink) 16%, transparent);
+  font-size: 14px;
+}
+
+.column__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: var(--space-2);
+  padding: var(--space-2);
+  overflow-y: auto;
+}
+
+.column__foot {
+  padding: 0 var(--space-2) var(--space-2);
+}
+
+/* Project Board: done tasks folded into a "Fet" list under the open ones */
+.done-list {
+  padding: 0 var(--space-2) var(--space-2);
+}
+
+.done-list__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--control-sm);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-1);
+  font-size: 13px;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+  transition: background-color var(--motion-fast) ease-out;
+}
+
+.done-list__summary::-webkit-details-marker {
+  display: none;
+}
+
+.done-list__summary::before {
+  content: "▸";
+  transition: transform var(--motion-fast) ease-out;
+}
+
+.done-list[open] > .done-list__summary::before {
+  transform: rotate(90deg);
+}
+
+.done-list__summary:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.done-list__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+}
+
+.done-list[open] .done-list__tasks {
+  animation: fade-in 200ms ease-out;
+}
+
+.column__foot > .btn {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0 var(--space-2);
+}
+
+/* Last tile: half see-through until it is used */
+.column-adder {
+  flex: 0 0 288px;
+  align-self: flex-start;
+  padding: var(--space-2);
+  background: color-mix(in srgb, var(--surface) 50%, transparent);
+  color: var(--ink-muted);
+  transition: background-color var(--motion-fast) ease-out;
+}
+
+.column-adder:hover,
+.column-adder:has(.creator) {
+  background: var(--surface);
+}
+
+.column-adder > .btn {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0 var(--space-2);
+}
+
+/* Drag and drop: the dragged task collapses, a slot shows where it will land */
+.task.is-dragging {
+  display: none;
+}
+
+.task-slot {
+  flex: none;
+  border-radius: var(--radius-1);
+  background: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+/* ---------- Timeline: sticky task names left, days scroll right ---------- */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cut);
+  --tl-label-w: 280px;
+  --day-w: 32px;
+}
+
+.timeline__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: var(--surface);
+}
+
+.tl-grid {
+  position: relative;
+  width: max-content;
+  min-width: 100%;
+}
+
+.tl-row {
+  display: grid;
+  grid-template-columns: var(--tl-label-w) calc(var(--days) * var(--day-w));
+  min-height: 36px;
+}
+
+.tl-label {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: 0 var(--space-3);
+  background: var(--surface);
+  transition: background-color var(--motion-fast) ease-out;
+}
+
+.tl-label__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tl-row--task {
+  cursor: pointer;
+}
+
+.tl-row--task:hover .tl-label {
+  background: var(--surface-muted);
+}
+
+/* Week line on Mondays + weekend shading; the range always starts on a Monday */
+.tl-track {
+  position: relative;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--line) 0 1px,
+    transparent 1px calc(var(--day-w) * 5),
+    var(--surface-muted) calc(var(--day-w) * 5) calc(var(--day-w) * 7)
+  );
+}
+
+.tl-head {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  min-height: 52px;
+}
+
+.tl-head .tl-label,
+.tl-head .tl-track {
+  background-color: var(--surface-muted);
+}
+
+.tl-months {
+  display: flex;
+  height: 24px;
+}
+
+.tl-month {
+  flex: none;
+}
+
+/* Month name sticks just right of the task column while its month is on screen */
+.tl-month > span {
+  position: sticky;
+  left: calc(var(--tl-label-w) + var(--space-2));
+  display: inline-block;
+  padding: 6px var(--space-2) 0;
+  font-size: 13px;
+  font-stretch: 125%;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tl-days {
+  display: flex;
+}
+
+.tl-days > span {
+  flex: 0 0 var(--day-w);
+  padding: 6px 0 4px;
+  text-align: center;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.tl-days > span[data-today="true"] {
+  color: var(--today);
+  font-weight: 600;
+}
+
+/* Group rows: the column's head colour, its tint along the track */
+.tl-group .tl-label {
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-size: 13px;
+}
+
+.tl-group .tl-track {
+  background-color: color-mix(in srgb, var(--c-bg) var(--tint), var(--tint-base));
+}
+
+.tl-bar {
+  position: absolute;
+  top: 7px;
+  height: 22px;
+  border-radius: var(--radius-1);
+  background: var(--c-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-ink) 45%, transparent);
+  transition: box-shadow var(--motion-fast) ease-out, transform var(--motion-fast) ease-out;
+}
+
+.tl-row--task:hover .tl-bar {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-ink) 45%, transparent), var(--shadow-float);
+  transform: translateY(-1px);
+}
+
+.tl-today {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 2px;
+  background: var(--today);
+  pointer-events: none;
+}
+
+/* "Today" tag under the sticky header, like the site's tags over camera images */
+.tl-today::after {
+  content: "Today";
+  position: absolute;
+  top: 60px;
+  left: 6px;
+  padding: 3px 6px;
+  border-radius: var(--radius-1);
+  background: var(--tag);
+  color: var(--on-tag);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tl-empty {
+  position: sticky;
+  left: 0;
+  padding: var(--space-5) var(--space-4);
+  color: var(--ink-muted);
+}
+
+.timeline__unscheduled {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-height: 30%;
+  padding: var(--space-3) var(--space-4);
+  overflow-y: auto;
+  background: var(--surface);
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 720px) {
+  .topbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .tabs {
+    grid-column: 1 / -1;
+    order: 3;
+    min-height: 48px;
+  }
+
+  .filterbar__search {
+    width: 100%;
+  }
+
+  .board {
+    scroll-snap-type: x mandatory;
+  }
+
+  .column,
+  .column-adder {
+    flex-basis: 85vw;
+    scroll-snap-align: start;
+  }
+
+  .timeline {
+    --tl-label-w: 150px;
+  }
+}
